@@ -1,19 +1,24 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
         store = {}
-        tries = 100
-        stringify = str(n)
+        first = True
         num = 0
-        while tries > 0:
-            if tries != 100:
+        while n > 0:
+            if first:
+                stringify = str(n)
+                first = False
+            else:
                 stringify = str(num)
                 num = 0
+
             for i in range(len(stringify)):
-                if stringify[i] not in store:
-                    store[stringify[i]] = int(stringify[i]) ** 2  
-                num += store[stringify[i]]
+                num += int(stringify[i]) ** 2  
+
             if str(num) == "1":
                 return True
-            tries = tries - 1
+
+            if num in store:
+                break
+            store[num] = num
 
         return False
